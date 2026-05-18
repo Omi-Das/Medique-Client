@@ -25,9 +25,9 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <Navbar/>
-      <main>
-        {children}
-      </main>
+       <main className="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+          {children}
+        </main>
       <Footer/>
     </html>
   );
