@@ -145,9 +145,9 @@ const SignUpPage = () => {
         </Form>
 
         <div className="flex justify-center items-center gap-3 my-2">
-          <Separator className="flex-grow h-[1px] bg-gray-200" />
+          <Separator className=" h-[1px] bg-gray-200" />
           <div className="whitespace-nowrap text-xs text-gray-400 uppercase tracking-wider"> Or sign up with </div>
-          <Separator className="flex-grow h-[1px] bg-gray-200" />
+          <Separator className=" h-[1px] bg-gray-200" />
         </div>
 
         {/* Google Social Login Button */}
