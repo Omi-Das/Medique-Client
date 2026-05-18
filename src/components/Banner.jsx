@@ -5,7 +5,6 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 
 export default function Banner() {
-  // ফ্রন্টএন্ডেই ৩টি স্লাইডের ডাটা এবং ইমেজ লিংক রাখা হলো
   const slides = [
     {
       id: 1,
@@ -32,14 +31,12 @@ export default function Banner() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // প্রতি ৫ সেকেন্ড পর পর অটোমেটিক স্লাইড পরিবর্তন হওয়ার লজিক
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
-
+  }, []);
   return (
     <div className="relative w-full h-[480px] overflow-hidden rounded-2xl shadow-xl">
       {slides.map((slide, index) => (
@@ -50,10 +47,8 @@ export default function Banner() {
           }`}
           style={{ backgroundImage: `url('${slide.image}')` }}
         >
-          {/* টেক্সটের ভিজিবিলিটি বাড়ানোর জন্য ব্ল্যাক ওভারলে */}
           <div className="absolute inset-0 bg-black/60 z-0 rounded-2xl" />
 
-          {/* কন্টেন্ট সেকশন */}
           <div className="relative z-10 max-w-3xl space-y-4">
             <h1 className="text-3xl md:text-5xl font-black text-white leading-tight drop-shadow-sm">
               {slide.title}
@@ -62,7 +57,6 @@ export default function Banner() {
               {slide.desc}
             </p>
             
-            {/* 🎯 কল-টু-অ্যাকশন বাটন (Tutors Page-এ নিয়ে যাবে) */}
             <div className="pt-4">
               <Link href="/tutors">
                 <Button 
@@ -78,7 +72,6 @@ export default function Banner() {
         </div>
       ))}
       
-      {/* স্লাইড নেভিগেশন ডটস */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
         {slides.map((_, index) => (
           <button
