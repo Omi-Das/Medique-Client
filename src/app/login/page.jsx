@@ -1,57 +1,71 @@
 "use client";
 
-import { Card, Separator } from "@heroui/react";
-import {
-  Button,
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextField,
-} from "@heroui/react";
+import { useState } from "react";
+import { Card, Separator, Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [serverError, setServerError] = useState("");
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    setServerError("");
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
-    const { data, error } = await authClient.signIn.email({
-      email: user.email,
-      password: user.password,
-    });
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: user.email,
+        password: user.password,
+      });
 
-    console.log({ data, error });
+      console.log({ data, error });
 
-    if (data) {
-      redirect("/");
-    }
+      if (data) {
+        router.push("/");
+      }
 
-    if (error) {
-      // toast
-      alert("Error");
+      if (error) {
+        setServerError(error.message || "Invalid email or password.");
+      }
+    } catch (err) {
+      setServerError("Something went wrong. Please try again.");
     }
   };
 
   const handleGoogleSignin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-    });
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch (err) {
+      setServerError("Google sign-in failed.");
+    }
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="text-center my-3">
-        <h1 className="text-2xl font-bold">Login</h1>
-        <p>Start your adventure with Wanderlust</p>
+    <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[75vh] px-4">
+      <div className="text-center my-4">
+
+        <h1 className="text-3xl font-black text-gray-800">Login</h1>
+        <p className="text-gray-500 text-sm mt-1">Start your adventure with TutorPlatform</p>
       </div>
-      <Card className="border rounded-none">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
+
+      <Card className="border rounded-none p-8 bg-white shadow-sm max-w-md w-full flex flex-col gap-5">
+        
+        {serverError && (
+          <div className="bg-red-50 border border-red-200 text-red-600 text-sm p-3 text-center font-medium">
+            ⚠️ {serverError}
+          </div>
+        )}
+
+        <Form onSubmit={onSubmit} className="flex flex-col gap-4 w-full">
           <TextField
             isRequired
             name="email"
@@ -63,59 +77,58 @@ const LoginPage = () => {
               return null;
             }}
           >
-            <Label>Email</Label>
-            <Input placeholder="john@example.com" />
-            <FieldError />
+            <Label className="text-sm font-semibold text-gray-700">Email</Label>
+            <Input placeholder="john@example.com" className="mt-1" />
+            <FieldError className="text-xs text-red-500 mt-1" />
           </TextField>
+
           <TextField
             isRequired
-            minLength={8}
             name="password"
             type="password"
-            validate={(value) => {
-              if (value.length < 8) {
-                return "Password must be at least 8 characters";
-              }
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-              if (!/[0-9]/.test(value)) {
-                return "Password must contain at least one number";
-              }
-              return null;
-            }}
           >
-            <Label>Password</Label>
-            <Input placeholder="Enter your password" />
-            <Description>
-              Must be at least 8 characters with 1 uppercase and 1 number
-            </Description>
-            <FieldError />
+            <div className="flex justify-between items-center">
+              <Label className="text-sm font-semibold text-gray-700">Password</Label>
+              <button type="button" className="text-xs text-blue-600 hover:underline">
+                Forgot Password?
+              </button>
+            </div>
+            <Input placeholder="Enter your password" className="mt-1" />
+            <FieldError className="text-xs text-red-500 mt-1" />
           </TextField>
-          <div className="flex justify-center gap-2">
-            <Button className={"rounded-none w-full bg-cyan-500"} type="submit">
+
+          <div className="flex justify-center gap-2 pt-2">
+            <Button className="rounded-none w-full bg-cyan-500 text-white font-bold tracking-wide hover:bg-cyan-600" type="submit">
               Login
             </Button>
           </div>
         </Form>
 
-        <div className="flex justify-center items-center gap-3">
-          <Separator />
-          <div className="whitespace-nowrap"> Or sign up with </div>
-          <Separator />
+        <div className="flex justify-center items-center gap-3 my-2">
+          <Separator className="flex-grow h-[1px] bg-gray-200" />
+          <div className="whitespace-nowrap text-xs text-gray-400 uppercase tracking-wider"> Or sign up with </div>
+          <Separator className="flex-grow h-[1px] bg-gray-200" />
         </div>
+
         <div>
           <Button
             onClick={handleGoogleSignin}
             variant="outline"
-            className={"w-full rounded-none"}
+            className="w-full rounded-none border border-gray-300 flex items-center justify-center gap-2 font-medium py-2 hover:bg-gray-50"
           >
-            <FcGoogle /> Sign in with Google
+            <FcGoogle size={20} /> Sign in with Google
           </Button>
         </div>
+
+        <p className="text-center text-sm text-gray-600 mt-2">
+          Don't have an account?{" "}
+          <Link href="/signup" className="text-cyan-600 font-bold hover:underline">
+            Register
+          </Link>
+        </p>
       </Card>
     </div>
   );
 };
 
-export default LoginPage
+export default LoginPage;
