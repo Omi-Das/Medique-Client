@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Card, Separator, Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
   const router = useRouter();
