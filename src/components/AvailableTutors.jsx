@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link"; // Fixed: Standard Next.js link import path
 import Image from "next/image";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function AvailableTutors() {
   const [tutors, setTutors] = useState([]);
@@ -23,13 +24,11 @@ export default function AvailableTutors() {
     fetchTutors();
   }, []);
 
+  // 
   if (loading) {
-    return (
-      <div className="flex justify-center my-10">
-        <p className="text-gray-500 animate-pulse font-medium">Loading available tutors...</p>
-      </div>
-    );
-  }
+  return <LoadingSpinner label="Loading top available tutors..." />;
+}
+
 
   if (tutors.length === 0) {
     return <p className="text-center text-gray-500">No tutors found in the database.</p>;

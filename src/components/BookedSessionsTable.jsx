@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function BookedSessionsTable({ initialBookings }) {
   const router = useRouter();
@@ -24,10 +25,15 @@ export default function BookedSessionsTable({ initialBookings }) {
           prev.map((b) => (b._id === cancelId ? { ...b, bookStatus: "Cancelled" } : b))
         );
         setCancelId(null);
+          toast.success("🛑 Appointment cancelled successfully.");
         router.refresh();
       }
+      else {
+        toast.error("Failed to cancel the session. Please try again.");
+      }
     } catch (error) {
-      alert("Failed to cancel the session.");
+    //   alert("Failed to cancel the session.");
+    toast.error("Server connection failed. Could not cancel the session.");
     } finally {
       setLoading(false);
     }

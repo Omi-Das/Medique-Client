@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { Card, Button, Input, Form, Label, TextField, Select, SelectItem } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function AddTutorPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -50,13 +51,16 @@ export default function AddTutorPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage({ type: "success", text: "🎉 Tutor profile created successfully!" });
+        // setMessage({ type: "success", text: "🎉 Tutor profile created successfully!" });
+         toast.success("🎉 Tutor profile created successfully!");
         e.currentTarget.reset(); // Reset form fields
       } else {
-        setMessage({ type: "error", text: data.message || "Failed to add tutor." });
+        // setMessage({ type: "error", text: data.message || "Failed to add tutor." });
+         toast.error("Failed to create profile. Verify entries.");
       }
     } catch (error) {
-      setMessage({ type: "error", text: "Server connection failed. Please try again." });
+    //   setMessage({ type: "error", text: "Server connection failed. Please try again." });
+     toast.error("Server connection failed. Try again.");
     } finally {
       setLoading(false);
     }

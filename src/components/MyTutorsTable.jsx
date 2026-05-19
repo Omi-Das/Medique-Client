@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, Button, Input, Form, Label, TextField } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function MyTutorsTable({ initialTutors }) {
   const router = useRouter();
@@ -23,16 +24,20 @@ export default function MyTutorsTable({ initialTutors }) {
       if (res.ok) {
         setTutors((prev) => prev.filter((t) => t._id !== deleteId));
         setDeleteId(null);
+        toast.success("🗑️ Tutor profile deleted permanently.");
         router.refresh();
       }
+      else{
+        toast.error("Failed to delete the tutor profile.");
+      }
     } catch (error) {
-      alert("Failed to delete tutor record.");
+    //   alert("Failed to delete tutor record.");
+    toast.error("Server connection failed. Could not delete the record.");
     } finally {
       setActionLoading(false);
     }
   };
 
-  // আপডেট ফর্ম সাবমিট হ্যান্ডলার
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     setActionLoading(true);
@@ -58,10 +63,15 @@ export default function MyTutorsTable({ initialTutors }) {
           prev.map((t) => (t._id === editTutor._id ? { ...t, ...payload } : t))
         );
         setEditTutor(null);
+        toast.success("📝 Profile changes saved successfully!");
         router.refresh();
       }
+      else {
+        toast.error("Failed to save changes. Please check your inputs.");
+      }
     } catch (error) {
-      alert("Failed to update tutor parameters.");
+    //   alert("Failed to update tutor parameters.");
+    toast.error("Server connection failed. Could not update parameters.");
     } finally {
       setActionLoading(false);
     }
@@ -208,7 +218,6 @@ export default function MyTutorsTable({ initialTutors }) {
         </div>
       )}
 
-      {/* ডিলিট কনফার্মেশন মডাল */}
       {deleteId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
           <Card className="bg-white max-w-sm w-full p-6 relative rounded-xl shadow-2xl border text-center">

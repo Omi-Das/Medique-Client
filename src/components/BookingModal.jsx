@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { Card, Button, Input, Form, Label, TextField } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function BookingModal({ tutor }) {
   const { data: session } = authClient.useSession();
@@ -16,6 +17,7 @@ export default function BookingModal({ tutor }) {
   const handleOpenBookingModal = () => {
     if (!session) {
       router.push("/login");
+      toast.success("Booking Tutor successful")
       return;
     }
     
@@ -25,7 +27,7 @@ export default function BookingModal({ tutor }) {
     targetDate.setHours(0,0,0,0);
 
     if (today < targetDate) {
-      alert("Booking is not available yet for this tutor.");
+      toast.error("Booking is not available yet for this tutor.");
       return;
     }
 
@@ -63,13 +65,15 @@ export default function BookingModal({ tutor }) {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage({ type: "success", text: data.message });
+        // setMessage({ type: "success", text: data.message });
+        toast.success("🎉 Session booked successfully!");
         setTimeout(() => {
           setIsModalOpen(false);
           router.refresh(); 
         }, 2000);
       } else {
-        setMessage({ type: "error", text: data.message });
+        // setMessage({ type: "error", text: data.message });
+         toast.error(data.message || "Booking failed.");
       }
     } catch (err) {
       setMessage({ type: "error", text: "Connection error. Try again." });
@@ -114,17 +118,16 @@ export default function BookingModal({ tutor }) {
                 <Input placeholder="e.g. +88017XXXXXXXX" className="mt-1" />
               </TextField>
 
-             <TextField isReadOnly name="studentEmail">
+<TextField isReadOnly name="studentEmail">
   <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
-  {/* default value rakha jabe? */}
   <Input value={session?.user?.email || ""} readOnly={true} className="mt-1 bg-gray-50 text-gray-400 cursor-not-allowed" />
 </TextField>
 
 <TextField isReadOnly name="tutorName">
   <Label className="text-xs font-bold text-gray-400">Selected Tutor (Auto-filled)</Label>
- {/* default value rakha jabe? */}
-  <Input value={tutor.name} readOnly={true} className="mt-1 bg-gray-50 text-gray-400 cursor-not-allowed" />
+  <Input value={tutor.name || ""} readOnly={true} className="mt-1 bg-gray-50 text-gray-400 cursor-not-allowed" />
 </TextField>
+
 
               <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" onClick={() => setIsModalOpen(false)} variant="flat" className="rounded-lg font-bold text-sm">Cancel</Button>
