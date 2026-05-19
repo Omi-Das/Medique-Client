@@ -2,7 +2,7 @@ import Image from "next/image";
 import BookingModal from "@/components/BookingModal"; // 🎯 Updated global import path
 
 const TutorDetailsPage = async ({ params }) => {
-  const { id } = params;
+  const { id } = await params;
 
   const res = await fetch(`http://localhost:5000/api/v1/tutors/${id}`, {
     cache: "no-store", 

@@ -114,15 +114,17 @@ export default function BookingModal({ tutor }) {
                 <Input placeholder="e.g. +88017XXXXXXXX" className="mt-1" />
               </TextField>
 
-              <TextField isReadOnly name="studentEmail">
-                <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
-                <Input value={session?.user?.email || ""} className="mt-1 bg-gray-55 text-gray-400 cursor-not-allowed" />
-              </TextField>
+             <TextField isReadOnly name="studentEmail">
+  <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
+  {/* default value rakha jabe? */}
+  <Input value={session?.user?.email || ""} readOnly={true} className="mt-1 bg-gray-50 text-gray-400 cursor-not-allowed" />
+</TextField>
 
-              <TextField isReadOnly name="tutorName">
-                <Label className="text-xs font-bold text-gray-400">Selected Tutor (Auto-filled)</Label>
-                <Input value={tutor.name} className="mt-1 bg-gray-55 text-gray-400 cursor-not-allowed" />
-              </TextField>
+<TextField isReadOnly name="tutorName">
+  <Label className="text-xs font-bold text-gray-400">Selected Tutor (Auto-filled)</Label>
+ {/* default value rakha jabe? */}
+  <Input value={tutor.name} readOnly={true} className="mt-1 bg-gray-50 text-gray-400 cursor-not-allowed" />
+</TextField>
 
               <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" onClick={() => setIsModalOpen(false)} variant="flat" className="rounded-lg font-bold text-sm">Cancel</Button>
