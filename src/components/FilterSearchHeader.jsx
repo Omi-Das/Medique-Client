@@ -33,7 +33,7 @@ export default function FilterSearchHeader() {
   };
 
   return (
-    <form onSubmit={handleSearchAndFilter} className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs mb-8 flex flex-col md:flex-row items-end gap-4 w-full">
+    <form onSubmit={handleSearchAndFilter} className="bg-gray p-6 rounded-xl border border-gray-100 shadow-xs mb-8 flex flex-col md:flex-row items-end gap-4 w-full">
       
       {/* নাম দিয়ে সার্চ ইনপুট */}
       <div className="w-full md:flex-grow">
