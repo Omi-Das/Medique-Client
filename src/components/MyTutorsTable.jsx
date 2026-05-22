@@ -14,7 +14,6 @@ export default function MyTutorsTable({ initialTutors }) {
   const [deleteId, setDeleteId] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
 
-  // ডিলিট রেকর্ড হ্যান্ডলার
   const handleDelete = async () => {
     setActionLoading(true);
     try {

@@ -39,20 +39,19 @@ export default function AvailableTutors() {
       {tutors.map((tutor) => (
         <div key={tutor._id} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:scale-[1.01] transition-transform flex flex-col justify-between">
           
-          {/* ইমেজ কন্টেইনার এবং নেক্সট ইমেজ হ্যান্ডলার */}
-          <div className="h-52 w-full relative bg-gray-100 block">
-            <Image
-              alt={tutor.name || "Tutor Photo"}
-              className="object-cover"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src={tutor.photo && tutor.photo.trim() !== "" && tutor.photo.startsWith("http") ? tutor.photo.trim() : "https://unsplash.com"}
-              referrerPolicy="no-referrer"
-              priority={true}
-            />
-          </div>
 
-          {/* টিউটর কন্টেন্ট ও ইনফরমেশন */}
+<div className="w-full aspect-[3/3] relative bg-[#e9ebed] block"> 
+  <Image
+    alt={tutor.name || "Tutor Photo"}
+    className="object-cover object-center w-full h-full"
+    fill
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    src={tutor.photo && tutor.photo.trim() !== "" && tutor.photo.startsWith("http") ? tutor.photo.trim() : "https://unsplash.com"}
+    referrerPolicy="no-referrer"
+    priority={true}
+  />
+</div>
+
           <div className="p-5 space-y-2 flex-grow flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex justify-between items-center">
