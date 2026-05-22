@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Login", 
+  title: "my-tutors", 
 };
 
 export default function LoginLayout({ children }) {
