@@ -56,10 +56,10 @@ const Navbar = () => {
         <div className="flex items-center justify-center flex-shrink-0 mx-1 md:mx-2">
           <Link href="/" className="flex items-center gap-1 md:gap-2 group">
             <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-sm md:text-md shadow-md shadow-cyan-100 dark:shadow-none group-hover:scale-105 transition-transform flex-shrink-0">
-              W
+              M
             </div>
             <span className="text-lg md:text-2xl font-black tracking-wider bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity whitespace-nowrap">
-              Wanderlust
+              Medique
             </span>
           </Link>
         </div>
