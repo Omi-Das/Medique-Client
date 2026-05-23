@@ -3,6 +3,10 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import BookedSessionsTable from "@/components/BookedSessionsTable";
 
+export const metadata = {
+  title: "Booked Sessions at my tutors page",
+}
+
 const MyBookedSessionsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

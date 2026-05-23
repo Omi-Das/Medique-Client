@@ -2,7 +2,7 @@ import TutorCard from "@/components/TutorCard";
 import FilterSearchHeader from "@/components/FilterSearchHeader";
 
 export const metadata = {
-  title: "Find Expert Instructors",
+  title: "Tutors Page",
 };
 
 const TutorsPage = async ({ searchParams }) => {

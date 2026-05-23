@@ -1,6 +1,10 @@
 import Image from "next/image";
 import BookingModal from "@/components/BookingModal"; // 🎯 Updated global import path
 
+export const metadata = {
+  title: "Details Teacher Page",
+}
+
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
 
