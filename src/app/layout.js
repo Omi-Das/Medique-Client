@@ -29,14 +29,6 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex flex-col min-h-screen bg-gray-55 text-gray-900">
-         {/* Global Toast Notification Container
-        <Toaster position="top-center" reverseOrder={false} />
-        <Navbar />
-        <main className="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
-          {children}
-        </main>
-        <Footer /> */}
-        {/* Global providers boundary wrapping the application content nodes */}
         <Providers>
           <Toaster position="top-center" reverseOrder={false} />
           <Navbar />

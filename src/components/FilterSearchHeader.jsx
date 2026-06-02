@@ -8,7 +8,6 @@ export default function FilterSearchHeader() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // ইউজার আগে থেকে কিছু সার্চ বা ফিল্টার করে রাখলে সেটি ধরে রাখার জন্য স্টেট
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [startDate, setStartDate] = useState(searchParams.get("startDate") || "");
   const [endDate, setEndDate] = useState(searchParams.get("endDate") || "");
@@ -21,7 +20,6 @@ export default function FilterSearchHeader() {
     if (startDate) params.set("startDate", startDate);
     if (endDate) params.set("endDate", endDate);
 
-    // URL পরিবর্তন করা হচ্ছে (যেমন: /tutors?search=john&startDate=2026-05-01)
     router.push(`/tutors?${params.toString()}`);
   };
 
@@ -29,13 +27,12 @@ export default function FilterSearchHeader() {
     setSearch("");
     setStartDate("");
     setEndDate("");
-    router.push("/tutors"); // ফিল্টার রিসেট করে সব ডাটা দেখাচ্ছে
+    router.push("/tutors");
   };
 
   return (
     <form onSubmit={handleSearchAndFilter} className="bg-gray p-6 rounded-xl border border-gray-100 shadow-xs mb-8 flex flex-col md:flex-row items-end gap-4 w-full">
       
-      {/* নাম দিয়ে সার্চ ইনপুট */}
       <div className="w-full md:flex-grow">
         <label className="text-xs font-bold text-gray-700 block mb-1">Search Tutor Name</label>
         <Input 
@@ -46,7 +43,6 @@ export default function FilterSearchHeader() {
         />
       </div>
 
-      {/* রেজিস্ট্রেশন শুরুর তারিখ (Date Picker) */}
       <div className="w-full md:w-48">
         <label className="text-xs font-bold text-gray-700 block mb-1">Start Date</label>
         <Input 
@@ -57,7 +53,6 @@ export default function FilterSearchHeader() {
         />
       </div>
 
-      {/* রেজিস্ট্রেশন শেষের তারিখ (Date Picker) */}
       <div className="w-full md:w-48">
         <label className="text-xs font-bold text-gray-700 block mb-1">End Date</label>
         <Input 
@@ -68,7 +63,6 @@ export default function FilterSearchHeader() {
         />
       </div>
 
-      {/* অ্যাকশন বোতামসমূহ */}
       <div className="flex gap-2 w-full md:w-auto flex-shrink-0">
         <Button type="submit" className="bg-cyan-500 text-white font-bold rounded-lg px-6 h-10 hover:bg-cyan-600 flex-grow md:flex-grow-0">
           Apply

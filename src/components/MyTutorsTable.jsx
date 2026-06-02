@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 export default function MyTutorsTable({ initialTutors }) {
   const router = useRouter();
   const [tutors, setTutors] = useState(initialTutors);
-  
-  // মডাল এবং অ্যাকশন স্টেটস
   const [editTutor, setEditTutor] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
@@ -30,7 +28,6 @@ export default function MyTutorsTable({ initialTutors }) {
         toast.error("Failed to delete the tutor profile.");
       }
     } catch (error) {
-    //   alert("Failed to delete tutor record.");
     toast.error("Server connection failed. Could not delete the record.");
     } finally {
       setActionLoading(false);
@@ -69,7 +66,6 @@ export default function MyTutorsTable({ initialTutors }) {
         toast.error("Failed to save changes. Please check your inputs.");
       }
     } catch (error) {
-    //   alert("Failed to update tutor parameters.");
     toast.error("Server connection failed. Could not update parameters.");
     } finally {
       setActionLoading(false);
@@ -126,7 +122,6 @@ export default function MyTutorsTable({ initialTutors }) {
         </table>
       </div>
 
-      {/* 🎯 আপডেট মডাল ফর্ম (সব ফিল্ডে শুধুমাত্র defaultValue ব্যবহার করা হয়েছে) */}
       {editTutor && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
           <Card className="bg-white max-w-2xl w-full p-6 relative rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]">

@@ -42,7 +42,7 @@ const LoginPage = () => {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/", // সফল লগইন শেষে হোম পেজে রিডাইরেক্ট করবে
+        callbackURL: "/",
       });
     } catch (err) {
       setServerError("Google sign-in failed.");
@@ -52,14 +52,12 @@ const LoginPage = () => {
   return (
     <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[75vh] px-4">
       <div className="text-center my-4">
-        {/* 🎯 রিকোয়ারমেন্ট অনুযায়ী টাইটেল */}
         <h1 className="text-3xl font-black text-gray-800">Login</h1>
         <p className="text-gray-500 text-sm mt-1">Start your adventure with TutorPlatform</p>
       </div>
 
       <Card className="border rounded-none p-8 bg-white shadow-sm max-w-md w-full flex flex-col gap-5">
         
-        {/* সার্ভার বা অথেনটিকেশন এরর মেসেজ ডিসপ্লে */}
         {serverError && (
           <div className="bg-red-50 border border-red-200 text-red-600 text-sm p-3 text-center font-medium">
             ⚠️ {serverError}
@@ -90,7 +88,6 @@ const LoginPage = () => {
           >
             <div className="flex justify-between items-center">
               <Label className="text-sm font-semibold text-gray-700">Password</Label>
-              {/* 🎯 রিকোয়ারমেন্ট অনুযায়ী Forget Password লিংক */}
               <button type="button" className="text-xs text-blue-600 hover:underline">
                 Forgot Password?
               </button>
@@ -113,7 +110,6 @@ const LoginPage = () => {
         </div>
 
         <div>
-          {/* 🎯 রিকোয়ারমেন্ট অনুযায়ী গুগল সোশ্যাল বাটন */}
           <Button
             onClick={handleGoogleSignin}
             variant="outline"
@@ -122,8 +118,6 @@ const LoginPage = () => {
             <FcGoogle size={20} /> Sign in with Google
           </Button>
         </div>
-
-        {/* 🎯 রিকোয়ারমেন্ট অনুযায়ী Register পেজের লিংক */}
         <p className="text-center text-sm text-gray-600 mt-2">
           Don't have an account?{" "}
           <Link href="/signup" className="text-cyan-600 font-bold hover:underline">

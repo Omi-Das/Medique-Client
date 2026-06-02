@@ -1,29 +1,25 @@
 import { NextResponse } from 'next/server';
-import { auth } from './lib/auth'; // আপনার BetterAuth ইনস্ট্যান্স পাথ
+import { auth } from './lib/auth'; 
 import { headers } from 'next/headers';
 
+export async function proxy(request) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
 
-export async function middleware(request) {
-  
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+    if (!session) {
+         return NextResponse.redirect(new URL('/login', request.url));
+    }
 
-  
-  if (!session) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  
-  return NextResponse.next();
+    return NextResponse.next();
 }
-
-
+ 
 export const config = {
   matcher: [
-    '/add-tutor',          
-    '/my-tutors',           
-    '/booked-sessions',    
-    '/profile/:path*',     
+    '/add-tutor', 
+    '/my-tutors', 
+    '/booked-sessions',
+    '/tutors/:id*', 
+    '/profile/:path*'
   ],
 };

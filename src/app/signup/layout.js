@@ -3,6 +3,6 @@ export const metadata = {
   title: "SignUp", 
 };
 
-export default function LoginLayout({ children }) {
+export default function SignUpLayout({ children }) {
   return <>{children}</>;
 }

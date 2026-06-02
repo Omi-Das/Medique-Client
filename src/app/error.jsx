@@ -5,7 +5,6 @@ import { Button } from "@heroui/react";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Standard system telemetry tracking logging hook
     console.error("Application runtime exception intercepted:", error);
   }, [error]);
 
@@ -26,7 +25,6 @@ export default function Error({ error, reset }) {
       </p>
 
       <div className="flex flex-wrap gap-3 justify-center">
-        {/* 🎯 "reset" function tells Next.js to try re-rendering the route server side instantly */}
         <Button 
           onClick={() => reset()}
           className="font-bold rounded-lg bg-cyan-500 text-white shadow-md shadow-cyan-100 hover:bg-cyan-600 px-6 h-11 transition-all"

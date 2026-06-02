@@ -10,21 +10,21 @@ export default function Banner() {
       id: 1,
       title: "Find the Perfect Expert Tutor for Your Journey",
       desc: "Connect with top verified teachers worldwide and master any subject easily through live interactive sessions.",
-      image: "https://unsplash.com",
+      image: "https://unsplash.com/photos/a-rock-on-the-beach-with-a-mossy-log-on-it-Cv7XG4SpEMQ",
       buttonText: "Explore All Tutors"
     },
     {
       id: 2,
       title: "Learn at Your Own Pace, Anywhere, Anytime",
       desc: "Get customized and flexible study schedules tailored exclusively to your personal academic needs and speed.",
-      image: "https://unsplash.com",
+      image: "https://unsplash.com/photos/brown-wooden-board-h0Vxgz5tyXA",
       buttonText: "Find Your Tutor"
     },
     {
       id: 3,
       title: "Boost Your Professional Skills & Academic Goals",
       desc: "Join thousands of successful learners who have already unlocked their potential and reached their dreams.",
-      image: "https://unsplash.com",
+      image: "https://unsplash.com/photos/gray-concrete-bricks-painted-in-blue-QMDap1TAu0g",
       buttonText: "Get Started Now"
     }
   ];
@@ -36,7 +36,7 @@ export default function Banner() {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
   return (
     <div className="relative w-full h-[480px] overflow-hidden rounded-2xl shadow-xl">
       {slides.map((slide, index) => (
