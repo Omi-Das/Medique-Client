@@ -13,8 +13,15 @@ const MyBookedSessionsPage = async () => {
 
   const studentEmail = session?.user?.email;
   
+   const { token } = await auth.api.getToken({
+    headers: await headers()
+  });
+
   const res = await fetch(`http://localhost:5000/api/v1/my-bookings?email=${studentEmail}`, {
     cache: "no-store",
+    headers: {
+      authorization: `Bearer ${token}`
+    }
   });
 
   const initialBookings = await res.json();

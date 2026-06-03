@@ -12,10 +12,10 @@ const TutorsPage = async ({ searchParams }) => {
   const endDate = resolvedParams.endDate || "";
 
   const queryParams = new URLSearchParams({ search, startDate, endDate }).toString();
-
+  
   const res = await fetch(`http://localhost:5000/api/v1/all-tutors?${queryParams}`, {
-    cache: "no-store", 
-  });
+    cache: "no-store",
+ });
   
   const tutors = await res.json();
 

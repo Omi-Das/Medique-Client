@@ -9,8 +9,15 @@ const MyTutorsPage = async () => {
 
   const userEmail = session?.user?.email;
 
+   const { token } = await auth.api.getToken({
+      headers: await headers()
+    });
+
   const res = await fetch(`http://localhost:5000/api/v1/my-tutors?email=${userEmail}`, {
     cache: "no-store",
+    headers: {
+          authorization: `Bearer ${token}`
+        }
   });
 
   const initialTutors = await res.json();
