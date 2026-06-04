@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function BookedSessionsTable({ initialBookings }) {
   const router = useRouter();
@@ -12,11 +13,21 @@ export default function BookedSessionsTable({ initialBookings }) {
   const [loading, setLoading] = useState(false);
 
   const handleCancelBooking = async () => {
+
+
     setLoading(true);
     try {
+      const {data:tokenData} = await authClient.token()
+if (!tokenData?.token) {
+      toast.error("Please Login");
+      setLoading(false); 
+      return;
+    }
       const res = await fetch(`http://localhost:5000/api/v1/bookings/${cancelId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+             authorization : `Bearer ${tokenData?.token}`
+},
         body: JSON.stringify({ bookStatus: "Cancelled" }),
       });
 

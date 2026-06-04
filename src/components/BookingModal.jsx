@@ -56,23 +56,29 @@ export default function BookingModal({ tutor }) {
     };
 
     try {
+      const {data:tokenData} = await authClient.token()
+if (!tokenData?.token) {
+      toast.error("Please Login");
+      setLoading(false); 
+      return;
+    }
       const res = await fetch("http://localhost:5000/api/v1/bookings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          authorization : `Bearer ${tokenData?.token}`
+         },
         body: JSON.stringify(bookingPayload),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        // setMessage({ type: "success", text: data.message });
         toast.success("🎉 Session booked successfully!");
         setTimeout(() => {
           setIsModalOpen(false);
           router.refresh(); 
         }, 2000);
       } else {
-        // setMessage({ type: "error", text: data.message });
          toast.error(data.message || "Booking failed.");
       }
     } catch (err) {

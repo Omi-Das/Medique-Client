@@ -31,10 +31,18 @@ export default function AddTutorPage() {
     };
 
     try {
+      const {data:tokenData} = await authClient.token()
+
+      if (!tokenData?.token) {
+      toast.error("Please Login");
+      setLoading(false); 
+      return;
+    }
       const res = await fetch("http://localhost:5000/api/v1/tutors", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization : `Bearer ${tokenData?.token}`
         },
         body: JSON.stringify(payload),
       });

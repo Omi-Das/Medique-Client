@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, Button, Input, Form, Label, TextField } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function MyTutorsTable({ initialTutors }) {
   const router = useRouter();
@@ -15,8 +16,19 @@ export default function MyTutorsTable({ initialTutors }) {
   const handleDelete = async () => {
     setActionLoading(true);
     try {
+      const {data:tokenData} = await authClient.token()
+
+    if (!tokenData?.token) {
+      toast.error("Please Login");
+       setActionLoading(false); 
+      return;
+    }
       const res = await fetch(`http://localhost:5000/api/v1/tutors/${deleteId}`, {
         method: "DELETE",
+         headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${tokenData?.token}`
+            }
       });
       if (res.ok) {
         setTutors((prev) => prev.filter((t) => t._id !== deleteId));
@@ -48,9 +60,20 @@ export default function MyTutorsTable({ initialTutors }) {
     };
 
     try {
+
+      const {data:tokenData} = await authClient.token()
+
+    if (!tokenData?.token) {
+      toast.error("Please Login");
+      setActionLoading(false); 
+      return;
+    }
+      
       const res = await fetch(`http://localhost:5000/api/v1/tutors/${editTutor._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`
+         },
         body: JSON.stringify(payload),
       });
 
@@ -213,19 +236,20 @@ export default function MyTutorsTable({ initialTutors }) {
       )}
 
       {deleteId && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
-          <Card className="bg-white max-w-sm w-full p-6 relative rounded-xl shadow-2xl border text-center">
-            <h3 className="font-black text-xl text-gray-800 mb-2">Are you absolutely sure?</h3>
-            <p className="text-gray-500 text-sm mb-6">This action cannot be undone. This tutor record will be permanently deleted.</p>
-            <div className="flex justify-center gap-3">
-              <Button type="button" onClick={() => setDeleteId(null)} variant="flat" className="rounded-lg font-bold">Cancel</Button>
-              <Button onClick={handleDelete} disabled={actionLoading} className="bg-red-500 text-white font-bold rounded-lg px-6 hover:bg-red-600">
-                {actionLoading ? "Deleting..." : "Yes, Delete"}
-              </Button>
-            </div>
-          </Card>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+    <Card className="bg-white max-w-sm w-full p-6 text-center rounded-xl shadow-2xl">
+      <h3 className="font-black text-xl text-gray-800 mb-2">Delete Profile?</h3>
+      <p className="text-gray-500 text-sm mb-6">Are you sure you want to permanently delete this tutor profile?</p>
+      <div className="flex justify-center gap-3">
+        <Button onClick={() => setDeleteId(null)} variant="flat" className="rounded-lg font-bold">No, Keep It</Button>
+        <Button onClick={handleDelete} disabled={actionLoading} className="bg-red-500 text-white font-bold rounded-lg px-6">
+          {actionLoading ? "Deleting..." : "Yes, Delete"}
+        </Button>
+      </div>
+    </Card>
+  </div>
+   )}
+
     </>
   );
 }
