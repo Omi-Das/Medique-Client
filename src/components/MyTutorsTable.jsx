@@ -23,7 +23,7 @@ export default function MyTutorsTable({ initialTutors }) {
        setActionLoading(false); 
       return;
     }
-      const res = await fetch(`http://localhost:5000/api/v1/tutors/${deleteId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/tutors/${deleteId}`, {
         method: "DELETE",
          headers: {
                 "content-type": "application/json",
@@ -69,7 +69,7 @@ export default function MyTutorsTable({ initialTutors }) {
       return;
     }
       
-      const res = await fetch(`http://localhost:5000/api/v1/tutors/${editTutor._id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/tutors/${editTutor._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json",
           authorization: `Bearer ${tokenData?.token}`

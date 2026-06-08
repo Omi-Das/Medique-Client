@@ -13,7 +13,7 @@ const TutorsPage = async ({ searchParams }) => {
 
   const queryParams = new URLSearchParams({ search, startDate, endDate }).toString();
   
-  const res = await fetch(`http://localhost:5000/api/v1/all-tutors?${queryParams}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/all-tutors?${queryParams}`, {
     cache: "no-store",
  });
   

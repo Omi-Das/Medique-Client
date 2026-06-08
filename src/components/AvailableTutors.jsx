@@ -12,7 +12,7 @@ export default function AvailableTutors() {
   useEffect(() => {
     const fetchTutors = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/available-tutors");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/available-tutors`);
         const data = await res.json();
         setTutors(Array.isArray(data) ? data : []);
         setLoading(false);

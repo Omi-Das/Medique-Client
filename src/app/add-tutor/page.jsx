@@ -11,18 +11,23 @@ export default function AddTutorPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (loading) return; 
-    
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const tutorData = Object.fromEntries(formData.entries());
-
+    const target = e.target;
     const payload = {
-      ...tutorData,
-      hourlyFee: Number(tutorData.hourlyFee),
-      totalSlot: Number(tutorData.totalSlot),
+      name: target.elements.name.value,
+      photo: target.elements.photo.value,
+      subject: target.elements.subject.value,
+      hourlyFee: Number(target.elements.hourlyFee.value),
+      availableDays: target.elements.availableDays.value,
+      timeSlot: target.elements.timeSlot.value,
+      totalSlot: Number(target.elements.totalSlot.value),
+      startDate: target.elements.startDate.value,
+      institution: target.elements.institution.value,
+      experience: target.elements.experience.value,
+      location: target.elements.location.value,
+      teachingMode: target.elements.teachingMode.value,
       createdBy: {
         uid: session?.user?.id,
         name: session?.user?.name,
@@ -31,18 +36,19 @@ export default function AddTutorPage() {
     };
 
     try {
-      const {data:tokenData} = await authClient.token()
+      const { data: tokenData } = await authClient.token();
 
       if (!tokenData?.token) {
-      toast.error("Please Login");
-      setLoading(false); 
-      return;
-    }
-      const res = await fetch("http://localhost:5000/api/v1/tutors", {
+        toast.error("Please Login");
+        setLoading(false); 
+        return;
+      }
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/tutors`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization : `Bearer ${tokenData?.token}`
+          authorization: `Bearer ${tokenData?.token}`
         },
         body: JSON.stringify(payload),
       });
@@ -51,7 +57,7 @@ export default function AddTutorPage() {
 
       if (res.ok) {
         toast.success("🎉 Tutor profile created successfully!");
-        e.target.reset(); 
+        target.reset(); 
       } else {
         toast.error(data.message || "Failed to create profile. Verify entries.");
       }
