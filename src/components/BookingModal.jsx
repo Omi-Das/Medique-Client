@@ -157,6 +157,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function BookingModal({ tutor }) {
+  const { data: session } = authClient.useSession();
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -188,7 +189,11 @@ export default function BookingModal({ tutor }) {
 
     const formData = new FormData(e.currentTarget);
     const payload = {
-      name: formData.get("studentName"),
+      tutorId: tutor._id,
+      tutorName: tutor.name,
+      studentName: formData.get("studentName"),
+      studentEmail: session?.user?.email,
+      phone: formData.get("phone"),
       photo: tutor.photo,
       subject: tutor.subject,
       hourlyFee: Number(tutor.hourlyFee),
@@ -200,10 +205,6 @@ export default function BookingModal({ tutor }) {
       experience: tutor.experience,
       location: tutor.location,
       teachingMode: tutor.teachingMode,
-      tutorId: tutor._id,
-      tutorName: tutor.name,
-      studentName: formData.get("studentName"),
-      phone: formData.get("phone"),
     };
 
     try {
@@ -223,14 +224,15 @@ export default function BookingModal({ tutor }) {
         toast.success("🎉 Session booked successfully!");
         setTimeout(() => {
           setIsModalOpen(false);
+          router.push("/booked-sessions");
           router.refresh(); 
-        }, 2000);
+        }, 1500);
       } else {
          toast.error(data.message || "Booking failed.");
       }
     } catch (err) {
       toast.error("Connection error. Try again.");
-    } {
+    } finally {
       setBookingLoading(false);
     }
   };
@@ -261,6 +263,11 @@ export default function BookingModal({ tutor }) {
               <TextField isRequired name="phone" type="tel">
                 <Label className="text-xs font-bold text-gray-700 dark:text-gray-300">Phone Number</Label>
                 <Input placeholder="e.g. +88017XXXXXXXX" className="mt-1 dark:bg-gray-800 dark:text-white rounded-lg" />
+              </TextField>
+
+              <TextField isReadOnly name="studentEmail">
+                <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
+                <Input value={session?.user?.email || ""} readOnly={true} className="mt-1 bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed rounded-lg" />
               </TextField>
 
               <div className="flex justify-end gap-2 pt-2">

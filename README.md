@@ -1,3 +1,42 @@
+#  Medique — Find & Book Expert Tutors Online
+
+Medique is a modern, responsive, and secure full-stack web platform built for students to discover, explore, and book specialized tutors based on their academic requirements. From searching verified instructors to managing personal learning schedules, Medique offers a seamless end-to-end user experience with real-time feedback.
+
+**Live Website URL:** 
+Client Site:
+https://mediqueue-client-black.vercel.app/
+Server Site:
+https://medique-server-chi.vercel.app/
+
+---
+
+## ✨ Key Features & Highlights
+
+* **Instant Loading Home Carousel:** A beautiful and fully responsive 3-slide header banner that uses optimized local assets. It preloads instantly on the page without any annoying blank background lag or network buffering delays.
+* **Smart Name Search & Date Filters:** A powerful filtering dashboard where users can search for tutors by name (case-insensitive) or filter them by selecting dynamic start and end dates to find available study schedules.
+* **Solid Route Protection (Proxy Gateway):** Secured all private dashboards and detail pages using a Next.js 15 server-side proxy configuration. It automatically intercepts logged-out users and pushes them safely back to the login screen.
+* **One-Click Light & Dark Theme Toggle:** A smooth and seamless theme switch button placed right in the navbar that dynamically updates background styles, input field properties, and card outlines across the entire site instantly.
+* **Smooth CRUD Sync with Real-Time Toasts:** Fully functional management dashboards where you can create, update, or cancel bookings. Every database action gives interactive and instant feedback through elegant sliding hot-toast alert bubbles.
+* **Custom 404 Pages & Clean Loading Spinner:** Outfitted with custom-designed fallback screens for broken links, error boundaries to prevent app crashes, and a smooth animated cyan spinner that keeps the UI looking clean while fetching database records.
+
+---
+
+## 🛠️ Technology Stack Used
+
+### Frontend Client
+* **Framework:** Next.js 15 (App Router Architecture)
+* **UI Components:** HeroUI (Formerly NextUI) & Tailwind CSS
+* **State & Session:** BetterAuth Client Configuration
+* **Alerts & Visuals:** React Hot Toast & Framer Motion
+
+### Backend Server
+* **Runtime Environment:** Node.js with Express.js Framework
+* **Database Engine:** MongoDB Client (Atlas Cluster Storage)
+* **Security & Tokens:** JSON Web Token (JWT) & Middleware Authorization Gateways
+* **Deployment Platform:** Vercel (Serverless Edge Infrastructure)
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

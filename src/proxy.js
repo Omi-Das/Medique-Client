@@ -19,7 +19,7 @@ export const config = {
     '/add-tutor', 
     '/my-tutors', 
     '/booked-sessions',
-    '/tutors/:id*', 
+    '/tutors/:id([a-f0-9]{24})', 
     '/profile/:path*'
   ],
 };
