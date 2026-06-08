@@ -36,18 +36,18 @@ export default function AvailableTutors() {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {tutors.map((tutor) => (
         <div key={tutor._id} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:scale-[1.01] transition-transform flex flex-col justify-between">
-          
-          <div className="w-full h-48 relative bg-[#e9ebed] block overflow-hidden"> 
-            <Image
-              alt={tutor.name || "Tutor Photo"}
-              className="object-fill w-full h-full"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src={tutor.photo && tutor.photo.trim() !== "" && tutor.photo.startsWith("http") ? tutor.photo.trim() : "https://unsplash.com"}
-              referrerPolicy="no-referrer"
-              priority={true}
-            />
-          </div>
+        
+<div className="w-full aspect-[3/3] relative bg-[#e9ebed] block"> 
+       <Image
+         alt={tutor.name || "Tutor Photo"}
+         className="object-cover object-center w-full h-full"
+         fill
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+         src={tutor.photo && tutor.photo.trim() !== "" && tutor.photo.startsWith("http") ? tutor.photo.trim() : "https://unsplash.com"}
+         referrerPolicy="no-referrer"
+         priority={true}
+       />
+     </div>
 
           <div className="p-5 space-y-2 flex-grow flex flex-col justify-between">
             <div className="space-y-2">
