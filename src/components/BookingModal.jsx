@@ -114,6 +114,24 @@ export default function BookingModal({ tutor }) {
                 <Label className="text-xs font-bold text-gray-700 dark:text-gray-300">Phone Number</Label>
                 <Input placeholder="e.g. +88017XXXXXXXX" className="mt-1 dark:bg-gray-800 dark:text-white rounded-lg" />
               </TextField>
+<TextField isReadOnly name="tutorId">
+  <Label className="text-xs font-bold text-gray-400">Tutor ID (Auto-filled)</Label>
+  <Input 
+    value={tutor?._id || ""} 
+    readOnly={true} 
+    className="mt-1 bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed rounded-lg" 
+  />
+</TextField>
+
+<TextField isReadOnly name="tutorName">
+  <Label className="text-xs font-bold text-gray-400">Tutor Name (Auto-filled)</Label>
+  <Input 
+    value={tutor?.name || ""} 
+    readOnly={true} 
+    className="mt-1 bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed rounded-lg" 
+  />
+</TextField>
+
 
               <TextField isReadOnly name="studentEmail">
                 <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
