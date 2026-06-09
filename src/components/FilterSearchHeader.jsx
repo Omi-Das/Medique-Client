@@ -67,7 +67,7 @@ export default function FilterSearchHeader() {
         <Button type="submit" className="bg-cyan-500 text-white font-bold rounded-lg px-6 h-10 hover:bg-cyan-600 flex-grow md:flex-grow-0">
           Apply
         </Button>
-        <Button type="button" onClick={handleReset} variant="flat" className="font-bold rounded-lg bg-gray px-4 h-10 flex-grow md:flex-grow-0">
+        <Button type="button" onClick={handleReset} variant="flat" className="font-bold rounded-lg font-bold text-gray-700 px-4 h-10 flex-grow md:flex-grow-0">
           Reset
         </Button>
       </div>
