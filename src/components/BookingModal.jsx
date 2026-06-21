@@ -134,7 +134,7 @@ export default function BookingModal({ tutor }) {
 
 
               <TextField isReadOnly name="studentEmail">
-                <Label className="text-xs font-bold text-gray-400">Student Email (Auto-filled)</Label>
+                <Label className="text-xs font-bold text-gray-300">Student Email (Auto-filled)</Label>
                 <Input value={session?.user?.email || ""} readOnly={true} className="mt-1 bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed rounded-lg" />
               </TextField>
 
